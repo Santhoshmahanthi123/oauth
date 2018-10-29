@@ -5,8 +5,11 @@ const passportSetup = require('./config/passport-setup');
 const mongoose = require('mongoose');
 const app = express();
 const authRoutes = require('./routes/auth-routes')
+const cookieSession = require('cookie-session');
+const passport = require('passport');
 //connect to mongodb    
 const DBURL = process.env.DBURL;
+const KEY = process.env.KEY;
 mongoose.connect(DBURL, { useNewUrlParser: true },()=>{
     console.log('Connected to mongoDb!');
 });
@@ -14,6 +17,15 @@ mongoose.connect(DBURL, { useNewUrlParser: true },()=>{
 app.set('view engine','ejs');
 //setup routes
 app.use('/auth',authRoutes);
+//passport initialization
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+app.use(cookieSession({
+    maxAge : 24 * 60 * 60 * 1000,
+    keys : [KEY]
+}))
 // app.use(passportSetup);
 //rendering home page
 app.get('/',(req,res)=>{
