@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const ejs = require('ejs');
+const passportSetup = require('./config/passport-setup');
+
 const app = express();
 const authRoutes = require('./routes/auth-routes')
 
@@ -8,6 +10,7 @@ const authRoutes = require('./routes/auth-routes')
 app.set('view engine','ejs');
 //setup routes
 app.use('/auth',authRoutes);
+// app.use(passportSetup);
 //rendering home page
 app.get('/',(req,res)=>{
 res.render('home');
