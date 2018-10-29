@@ -9,6 +9,7 @@
   "author": "santhosh",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^6.1.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "passport": "^0.4.0",
