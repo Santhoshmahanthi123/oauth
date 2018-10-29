@@ -1,6 +1,17 @@
 const passport = require('passport');
 const GoogleStategy = require('passport-google-oauth20');
 const User = require('../models/user');  
+
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+    User.findById(id).then((user) => {
+        done(null, user);
+    });
+});
+
 passport.use(new GoogleStategy({
 //options for the google to start
     clientID : process.env.clientID,
@@ -15,6 +26,7 @@ passport.use(new GoogleStategy({
             //if user already exists in db then
 
             console.log('This user is existing user:'+currentUser);
+            done(null,currentUser);
 
         }
         else{
@@ -26,6 +38,8 @@ passport.use(new GoogleStategy({
                 googleId : profile.id
             }).save().then((newUser)=>{
                 console.log('new user created:'+newUser);
+                DONE(NULL,newUser);
+
             });
         }
 
