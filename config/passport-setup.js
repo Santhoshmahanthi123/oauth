@@ -8,13 +8,31 @@ passport.use(new GoogleStategy({
     callbackURL :'/auth/google/redirect'
 
 },(accessToken,refreshToken,profile,done)=>{
+    //if the user exists in our db then
+    User.findOne({googleId : profile.id}).then((currentUser)=>{
+
+        if(currentUser){
+            //if user already exists in db then
+
+            console.log('This user is existing user:'+currentUser);
+
+        }
+        else{
+            //if user not exists in db then create a new user
+            // console.log('passport function started!');
+            // console.log(profile);
+            new User({
+                username : profile.displayName, 
+                googleId : profile.id
+            }).save().then((newUser)=>{
+                console.log('new user created:'+newUser);
+            });
+        }
+
+    })
+
+
      //passport call back function 
-     console.log('passport function started!');
-     console.log(profile);
-     new User({
-         username : profile.displayName, 
-         googleId : profile.id
-     }).save().then((newUser)=>{
-         console.log('new user created:'+newUser);
-     })
+ 
+   
 }))
