@@ -6,6 +6,7 @@ passport.use(new GoogleStategy({
     clientSecret : process.env.clientSecret,
     callbackURL :'/auth/google/redirect'
 
-},()=>{
+},(accessToken,refreshToken,profile,done)=>{
      //passport call back function 
+     console.log(profile);
 }))
