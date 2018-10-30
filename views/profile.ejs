@@ -62,9 +62,12 @@
             </ul>
         </nav>
         <header>
-            <h1>Welcome to your profile, <%= user.username %></h1>
+            <h1>Welcome to your profile, Mr/Mrs   <%= user.username %></h1>
         </header>
         <main>
+            <img src="<%= user.thumbnail %>" />
+            <br>
+            <br>
             <p>Welcome <%=user.username %> we are happy to serve you!</p>
         </main>
     </body>
