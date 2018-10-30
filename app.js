@@ -33,7 +33,7 @@ app.use('/profile',profileRoutes);
 // app.use(passportSetup);
 //rendering home page
 app.get('/',(req,res)=>{
-res.render('home');
+res.render('home',{user : req.user});
 });
 
 //Starting the server
