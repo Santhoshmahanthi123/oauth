@@ -4,7 +4,9 @@ const ejs = require('ejs');
 const passportSetup = require('./config/passport-setup');
 const mongoose = require('mongoose');
 const app = express();
-const authRoutes = require('./routes/auth-routes')
+const authRoutes = require('./routes/auth-routes');
+const profileRoutes = require('./routes/profile');
+
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 //connect to mongodb    
@@ -26,6 +28,8 @@ app.use(passport.initialize())
 app.use(passport.session())
 //setup routes
 app.use('/auth',authRoutes);
+app.use('/profile',profileRoutes);
+
 // app.use(passportSetup);
 //rendering home page
 app.get('/',(req,res)=>{
